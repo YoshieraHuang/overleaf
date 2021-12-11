@@ -2,7 +2,7 @@
 # Overleaf Base Image (sharelatex/sharelatex-base)
 # --------------------------------------------------
 
-FROM phusion/baseimage:focal-1.0.0
+FROM baseimage:focal-1.0.0
 
 # Makes sure LuaTex cache is writable
 # -----------------------------------
@@ -40,9 +40,9 @@ RUN chmod +x /usr/bin/envsubst
 # # docker build \
 #     --build-arg TEXLIVE_MIRROR=http://ctan.crest.fr/tex-archive/systems/texlive/tlnet \
 #     -f Dockerfile-base -t sharelatex/sharelatex-base .
-ARG TEXLIVE_MIRROR=http://mirror.ctan.org/systems/texlive/tlnet
+ARG TEXLIVE_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/tex-historic-archive/systems/texlive/2019/tlnet-final
 
-ENV PATH "${PATH}:/usr/local/texlive/2021/bin/x86_64-linux"
+ENV PATH "${PATH}:/usr/local/texlive/2019/bin/x86_64-linux"
 
 RUN mkdir /install-tl-unx \
 &&  curl -sSL \

@@ -1,0 +1,13 @@
+FROM sharelatex:2019
+
+# 中文字体
+RUN apt-get update \
+ && apt-get install -y ttf-mscorefonts-installer xfonts-wqy \
+ && rm -rf /var/lib/apt/lists/*
+# 添加windows字体
+ADD fonts.tar.gz /usr/share/fonts/winfonts/
+RUN mkfontscale \
+ && mkfontdir \
+ && fc-cache -fv
+# 安装所有包
+RUN tlmgr install scheme-full

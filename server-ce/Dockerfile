@@ -2,7 +2,7 @@
 # Overleaf Community Edition (overleaf/overleaf)
 # ---------------------------------------------
 
-ARG SHARELATEX_BASE_TAG=sharelatex/sharelatex-base:latest
+ARG SHARELATEX_BASE_TAG=sharelatex-base:2019
 FROM $SHARELATEX_BASE_TAG
 
 WORKDIR /var/www/sharelatex
