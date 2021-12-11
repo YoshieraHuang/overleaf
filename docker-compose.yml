@@ -2,9 +2,7 @@ version: '2.2'
 services:
     sharelatex:
         restart: always
-        # Server Pro users:
-        # image: quay.io/sharelatex/sharelatex-pro
-        image: sharelatex/sharelatex
+        image: sharelatex:2.7.0
         container_name: sharelatex
         depends_on:
             mongo:
@@ -12,20 +10,15 @@ services:
             redis:
                 condition: service_started
         ports:
-            - 80:80
+            - 8181:80
         links:
             - mongo
             - redis
         volumes:
             - ~/sharelatex_data:/var/lib/sharelatex
-            ########################################################################
-            ####  Server Pro: Uncomment the following line to mount the docker  ####
-            ####             socket, required for Sibling Containers to work    ####
-            ########################################################################
-            # - /var/run/docker.sock:/var/run/docker.sock
         environment:
 
-            SHARELATEX_APP_NAME: Overleaf Community Edition
+            SHARELATEX_APP_NAME: PIMS Sharelatex
 
             SHARELATEX_MONGO_URL: mongodb://mongo/sharelatex
 
@@ -57,50 +50,21 @@ services:
             # SHARELATEX_LEFT_FOOTER: '[{"text": "Powered by <a href=\"https://www.sharelatex.com\">ShareLaTeX</a> 2016"},{"text": "Another page I want to link to can be found <a href=\"here\">here</a>"} ]'
             # SHARELATEX_RIGHT_FOOTER: '[{"text": "Hello I am on the Right"} ]'
 
-            # SHARELATEX_EMAIL_FROM_ADDRESS: "team@sharelatex.com"
+            SHARELATEX_EMAIL_FROM_ADDRESS: "tex@pims.ac.cn"
 
             # SHARELATEX_EMAIL_AWS_SES_ACCESS_KEY_ID:
             # SHARELATEX_EMAIL_AWS_SES_SECRET_KEY:
 
-            # SHARELATEX_EMAIL_SMTP_HOST: smtp.mydomain.com
-            # SHARELATEX_EMAIL_SMTP_PORT: 587
-            # SHARELATEX_EMAIL_SMTP_SECURE: false
-            # SHARELATEX_EMAIL_SMTP_USER:
-            # SHARELATEX_EMAIL_SMTP_PASS:
-            # SHARELATEX_EMAIL_SMTP_TLS_REJECT_UNAUTH: true
-            # SHARELATEX_EMAIL_SMTP_IGNORE_TLS: false
-            # SHARELATEX_EMAIL_SMTP_NAME: '127.0.0.1'
-            # SHARELATEX_EMAIL_SMTP_LOGGER: true
-            # SHARELATEX_CUSTOM_EMAIL_FOOTER: "This system is run by department x"
-
-            ################
-            ## Server Pro ##
-            ################
-
-            # SANDBOXED_COMPILES: 'true'
-
-            # SANDBOXED_COMPILES_SIBLING_CONTAINERS: 'true'
-            # SANDBOXED_COMPILES_HOST_DIR: '/var/sharelatex_data/data/compiles'
-            # SYNCTEX_BIN_HOST_PATH: '/var/sharelatex_data/bin/synctex'
-
-            # DOCKER_RUNNER: 'false'
-
-            ## Works with test LDAP server shown at bottom of docker compose
-            # SHARELATEX_LDAP_URL: 'ldap://ldap:389'
-            # SHARELATEX_LDAP_SEARCH_BASE: 'ou=people,dc=planetexpress,dc=com'
-            # SHARELATEX_LDAP_SEARCH_FILTER: '(uid={{username}})'
-            # SHARELATEX_LDAP_BIND_DN: 'cn=admin,dc=planetexpress,dc=com'
-            # SHARELATEX_LDAP_BIND_CREDENTIALS: 'GoodNewsEveryone'
-            # SHARELATEX_LDAP_EMAIL_ATT: 'mail'
-            # SHARELATEX_LDAP_NAME_ATT: 'cn'
-            # SHARELATEX_LDAP_LAST_NAME_ATT: 'sn'
-            # SHARELATEX_LDAP_UPDATE_USER_DETAILS_ON_LOGIN: 'true'
-
-            # SHARELATEX_TEMPLATES_USER_ID: "578773160210479700917ee5"
-            # SHARELATEX_NEW_PROJECT_TEMPLATE_LINKS: '[ {"name":"All Templates","url":"/templates/all"}]'
-
-
-            # SHARELATEX_PROXY_LEARN: "true"
+            SHARELATEX_EMAIL_SMTP_HOST: "smtphz.qiye.163.com"
+            SHARELATEX_EMAIL_SMTP_PORT: 465
+            SHARELATEX_EMAIL_SMTP_SECURE: 'true'
+            SHARELATEX_EMAIL_SMTP_USER: 'tex@pims.ac.cn'
+            SHARELATEX_EMAIL_SMTP_PASS: 'pimstex2018'
+            SHARELATEX_EMAIL_SMTP_TLS_REJECT_UNAUTH: 'true'
+            SHARELATEX_EMAIL_SMTP_IGNORE_TLS: 'false'
+            SHARELATEX_EMAIL_SMTP_NAME: '127.0.0.1'
+            SHARELATEX_EMAIL_SMTP_LOGGER: 'true'
+            SHARELATEX_CUSTOM_EMAIL_FOOTER: "<div>This system is run by humble one</div>"
 
     mongo:
         restart: always
